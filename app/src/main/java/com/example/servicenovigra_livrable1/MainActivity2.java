@@ -141,5 +141,29 @@ public class MainActivity2 extends AppCompatActivity {
                 }
             }
         });
+        Submit_employee.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ShowToast")
+            @Override
+            public void onClick(View v) {
+                if (android.util.Patterns.EMAIL_ADDRESS.matcher(mail.getText().toString()).matches()){
+                Toast.makeText(getApplicationContext(), getText(Integer.parseInt("Success")),Toast.LENGTH_SHORT);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), getText(Integer.parseInt("Invalid please enter a valid email")) ,Toast.LENGTH_SHORT);
+                } setVisible(true);
+            }
+        });
+        Submit_customer.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ShowToast")
+            @Override
+            public void onClick(View v) {
+                if (android.util.Patterns.EMAIL_ADDRESS.matcher(mail.getText().toString()).matches()){
+                    Toast.makeText(getApplicationContext(), getText(Integer.parseInt("Success")),Toast.LENGTH_SHORT);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), getText(Integer.parseInt("Invalid please enter a valid email")) ,Toast.LENGTH_SHORT);
+                } setVisible(true);
+            }
+        });
     }
 }
