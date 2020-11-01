@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="#BA2121"
     android:gravity="center"
-    tools:context=".MainActivity"
+    android:orientation="vertical"
+    tools:context=".AdminAccount"
     tools:ignore="ExtraText">
 
 
     <ImageView
-        android:layout_width="309dp"
-        android:layout_height="224dp"
+        android:layout_width="369dp"
+        android:layout_height="79dp"
         android:src="@drawable/trash" />
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -28,84 +28,80 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_baseline_person_24" />
+            android:src="@drawable/ic_baseline_alternate_email_24" />
 
         <EditText
-            android:id="@+id/et_usernameL"
+            android:id="@+id/AdEmail"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:hint="Enter Username"
+            android:hint="Enter Email"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white" />
-
     </LinearLayout>
 
     <LinearLayout
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:padding="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/round_edittext"
         android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/round_edittext">
+        android:padding="10dp">
 
         <ImageView
             android:layout_width="50dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_lock"/>
-
+            android:src="@drawable/ic_lock" />
 
         <EditText
+            android:id="@+id/AdPassword"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:id="@+id/et_password"
+            android:background="@android:color/transparent"
             android:hint="Enter Password"
             android:textColor="@android:color/white"
-            android:textColorHint="@android:color/white"
-            android:background="@android:color/transparent"/>
-
+            android:textColorHint="@android:color/white" />
     </LinearLayout>
 
-
     <Button
-
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/customerbt"
-        android:text="submit as a customer"
-
-        android:textColor="@android:color/white"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/round_button"/>
-
-    <Button
-
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/employeebt"
-        android:text="submit as an employee"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/round_button"/>
-    <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:id="@+id/bt_Administrator"
-        android:text="Administrator account"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/round_button"/>
-
-
-    <Button
-
-        android:id="@+id/bt_signUp"
+        android:id="@+id/LogButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:background="@drawable/round_button"
-        android:text="Sign UP"
-        android:textColor="@android:color/white"/>
+        android:text="submit"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/backToMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/round_button"
+        android:text="Return"
+        android:textColor="@android:color/white" />
+
+    <LinearLayout
+        android:layout_width="477dp"
+        android:layout_height="40dp"
+        android:background="#A69F9F"
+        android:orientation="vertical">
+
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:lineSpacingExtra="36sp"
+        android:text="Administrator"
+        android:textAlignment="center"
+        android:textColor="#F3F1F1"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
 
 </LinearLayout>

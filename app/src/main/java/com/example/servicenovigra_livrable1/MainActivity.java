@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
     EditText userName,password;
     Button btnLogin_client;
     Button btnLogin_employee;
+    Button btn_Admin;
     Button  btnSign_up;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
         btnLogin_client=(Button) findViewById(R.id.customerbt);
         btnLogin_employee=(Button) findViewById(R.id.employeebt);
+        btn_Admin=(Button) findViewById(R.id.bt_Administrator);
+
 
 
         btnLogin_client.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +85,16 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        btn_Admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent intent=new Intent(getApplicationContext(),AdminAccount.class);
+                startActivity(intent);
+            }
+        });
+
+
 
 
 

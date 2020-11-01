@@ -14,8 +14,8 @@ import android.widget.Toast;
 public class MainActivity2 extends AppCompatActivity {
     EditText FirstName,LastName,mail,userName,password;
 
-    Button Submit_customer;
-    Button Submit_employee;
+    Button Submit_customer, Submit_employee;
+
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
 
@@ -62,7 +62,7 @@ public class MainActivity2 extends AppCompatActivity {
 
 
 
-                if(((!(mail.getText().toString().isEmpty()))||(!(mail.getText().toString().trim().matches(emailPattern)))) &&(userName.length()!=0)&&(password.length()!=0)&&(FirstName.length()!=0)&&(LastName.length()!=0)&&(mail.length()!=0)) {
+                if(((!(mail.getText().toString().isEmpty()))&&(mail.getText().toString().trim().matches(emailPattern))) &&(userName.length()!=0)&&(password.length()!=0)&&(FirstName.length()!=0)&&(LastName.length()!=0)&&(mail.length()!=0)) {
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     String employee_name = userName.getText().toString();
 
@@ -105,7 +105,7 @@ public class MainActivity2 extends AppCompatActivity {
 
 
 
-                if(((!(mail.getText().toString().isEmpty()))||(!(mail.getText().toString().trim().matches(emailPattern))))&&(userName.length()!=0)&&(password.length()!=0)&&(FirstName.length()!=0)&&(LastName.length()!=0)&&(mail.length()!=0)) {
+                if((!(mail.getText().toString().isEmpty()))&&(mail.getText().toString().trim().matches(emailPattern))&&(userName.length()!=0)&&(password.length()!=0)&&(FirstName.length()!=0)&&(LastName.length()!=0)&&(mail.length()!=0)) {
                     Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                     String customer_name = userName.getText().toString();
 
@@ -116,6 +116,8 @@ public class MainActivity2 extends AppCompatActivity {
 
             }
         });
+
+
 
     }
 }
