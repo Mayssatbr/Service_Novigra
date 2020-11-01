@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +33,8 @@ import java.util.Map;
 public class MainActivity2 extends AppCompatActivity {
     EditText FirstName,LastName,mail,userName,password;
 
+    private static final String TAG = "MainActivity2";
+
     Button Submit_customer, Submit_employee;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
@@ -47,6 +50,7 @@ public class MainActivity2 extends AppCompatActivity {
         fAuth=FirebaseAuth.getInstance();
 
         fStore=FirebaseFirestore.getInstance();
+
         FirstName=(EditText)findViewById(R.id.et_firstName);
         LastName=(EditText)findViewById(R.id.et_lastName);
         mail=(EditText) findViewById(R.id.mail);
@@ -63,181 +67,135 @@ public class MainActivity2 extends AppCompatActivity {
         Submit_customer=(Button) findViewById(R.id.bt_customer);
         Submit_employee=(Button) findViewById(R.id.bt_employee);
 
-        if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
-
-        }
 
         Submit_employee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!(email.matches(emailPattern))){
-                    mail.setError("wrong email");
+                if(mail.getText().toString().isEmpty()) {
+                    mail.setError("enter your mail");
+                }else {
+                    if (!(mail.getText().toString().trim().matches(emailPattern))) {
+                        mail.setError("invalid mail address");
+                    }
                 }
-                if(TextUtils.isEmpty(email)){
-                    mail.setError("Email is Required");
 
+
+                if(userName.length()==0){
+                    userName.setError("Enter Username");
                 }
-                if(TextUtils.isEmpty(passw)){
-                    password.setError("Empty Password");
+                if(password.length()==0){
+                    password.setError("Enter password");
                 }
-                //progressBar.setVisibility(View.VISIBLE);
+                if(FirstName.length()==0){
+                    FirstName.setError("Enter First name");
+                }
+                if(LastName.length()==0){
+                    LastName.setError("Enter Last name");
+                }
 
-                fAuth.createUserWithEmailAndPassword(email, passw).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
+                fAuth.createUserWithEmailAndPassword(mail.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
 
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(MainActivity2.this, "User created" , Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        if (task.isSuccessful()) {
+
+                            Log.d(TAG, "create::success");
+                            FirebaseUser user = fAuth.getCurrentUser();
+                            updateUI(user);
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
 
-                                } else {
-                                    Toast.makeText(MainActivity2.this, "Authentication failed." + task.getException(),Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                        } else {
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(MainActivity2.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+
+                        }
+                    }
+                });
 
 
             }
         });
 
-//        Submit_employee.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(mail.getText().toString().isEmpty()) {
-//                    mail.setError("enter your mail address");
-//                }else {
-//                    if (!(mail.getText().toString().trim().matches(emailPattern))) {
-//                        mail.setError("invalid mail address");
-//                    }
-//                }
-//
-//
-//
-//                if (userName.length()==0){
-//                    userName.setError("Enter Username");
-//                }
-//                if(password.length()==0){
-//                    password.setError("Enter password");
-//                }
-//                if(FirstName.length()==0){
-//                    FirstName.setError("Enter First name");
-//                }
-//                if(LastName.length()==0){
-//                    LastName.setError("Enter Last name");
-//                }
-//
-//
-//                if((!(mail.getText().toString().isEmpty()))&&(mail.getText().toString().trim().matches(emailPattern))&&(userName.length()!=0)&&(password.length()!=0)&&(FirstName.length()!=0)&&(LastName.length()!=0)&&(mail.length()!=0)) {
-//                    fAuth.createUserWithEmailAndPassword(mail.getText().toString(),password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-//                        @Override
-//                        public void onSuccess(AuthResult authResult) {
-//                            FirebaseUser user=fAuth.getCurrentUser();
-//                            Toast.makeText(MainActivity2.this, "Account Created", Toast.LENGTH_SHORT).show();
-//                            DocumentReference df = fStore.collection("Users").document(user.getUid());
-//                            HashMap<Object, String> userInfo = new HashMap<>();
-//
-//                            userInfo.put("FirstName", FirstName.getText().toString());
-//                            userInfo.put("LastName", LastName.getText().toString());
-//                            userInfo.put("userName",userName.getText().toString());
-//                            userInfo.put("UserEmail",mail.getText().toString());
-//
-//
-//                            userInfo.put("isUser","1");
-//                            df.set(userInfo);
-//                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-//
-//                            startActivity(intent);
-//                            finish();
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(MainActivity2.this, "failed to create Account", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//
-//
-//
-//                }
-//
-//
-//            }
-//        });
-//
-//
-//
-//
-//
-//        Submit_customer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(mail.getText().toString().isEmpty()) {
-//                    mail.setError("enter your mail");
-//                }else {
-//                    if (!(mail.getText().toString().trim().matches(emailPattern))) {
-//                        mail.setError("invalid mail address");
-//                    }
-//                }
-//
-//
-//                if(userName.length()==0){
-//                    userName.setError("Enter Username");
-//                }
-//                if(password.length()==0){
-//                    password.setError("Enter password");
-//                }
-//                if(FirstName.length()==0){
-//                    FirstName.setError("Enter First name");
-//                }
-//                if(LastName.length()==0){
-//                    LastName.setError("Enter Last name");
-//                }
-//
-//
-//
-//
-//                if((!(mail.getText().toString().isEmpty()))&&(mail.getText().toString().trim().matches(emailPattern))&&(userName.length()!=0)&&(password.length()!=0)&&(FirstName.length()!=0)&&(LastName.length()!=0)&&(mail.length()!=0)) {
-//                    fAuth.createUserWithEmailAndPassword(mail.getText().toString(),password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-//                        @Override
-//                        public void onSuccess(AuthResult authResult) {
-//                            FirebaseUser user=fAuth.getCurrentUser();
-//                            Toast.makeText(MainActivity2.this, "Account Created", Toast.LENGTH_SHORT).show();
-//                            DocumentReference df= fStore.collection("Users").document(user.getUid());
-//                            Map<String,Object> userInfo= new HashMap<>();
-//                            userInfo.put("FirstName",FirstName.getText().toString());
-//                            userInfo.put("LastName",LastName.getText().toString());
-//                            userInfo.put("userName",userName.getText().toString());
-//                            userInfo.put("UserEmail",mail.getText().toString());
-//
-//
-//                            userInfo.put("isUser","1");
-//                            df.set(userInfo);
-//                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-//
-//                            startActivity(intent);
-//                            finish();
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                        @Override
-//                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(MainActivity2.this, "failed to create Account", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//
-//
-//
-//                }
-//
-//
-//
-//
-//            }
-//        });
+
+
+
+        Submit_customer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mail.getText().toString().isEmpty()) {
+                    mail.setError("enter your mail");
+                }else {
+                    if (!(mail.getText().toString().trim().matches(emailPattern))) {
+                        mail.setError("invalid mail address");
+                    }
+                }
+
+
+                if(userName.length()==0){
+                    userName.setError("Enter Username");
+                }
+                if(password.length()==0){
+                    password.setError("Enter password");
+                }
+                if(FirstName.length()==0){
+                    FirstName.setError("Enter First name");
+                }
+                if(LastName.length()==0){
+                    LastName.setError("Enter Last name");
+                }
+
+
+
+
+                if((!(mail.getText().toString().isEmpty()))&&(mail.getText().toString().trim().matches(emailPattern))&&(userName.length()!=0)&&(password.length()!=0)&&(FirstName.length()!=0)&&(LastName.length()!=0)&&(mail.length()!=0)) {
+                    fAuth.createUserWithEmailAndPassword(mail.getText().toString(),password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            FirebaseUser user=fAuth.getCurrentUser();
+                            Toast.makeText(MainActivity2.this, "Account Created", Toast.LENGTH_SHORT).show();
+                            DocumentReference df= fStore.collection("Users").document(user.getUid());
+                            Map<String,Object> userInfo= new HashMap<>();
+                            userInfo.put("FirstName",FirstName.getText().toString());
+                            userInfo.put("LastName",LastName.getText().toString());
+                            userInfo.put("userName",userName.getText().toString());
+                            userInfo.put("UserEmail",mail.getText().toString());
+
+
+                            userInfo.put("isUser","1");
+                            df.set(userInfo);
+                            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+
+                            startActivity(intent);
+                            finish();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(MainActivity2.this, "failed to create Account", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+
+                }
+
+
+
+            }
+        });
 
 
 
     }
+    private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            Toast.makeText(MainActivity2.this, "User created" , Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(MainActivity2.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
