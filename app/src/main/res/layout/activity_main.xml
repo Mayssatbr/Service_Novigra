@@ -30,12 +30,13 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_person_24" />
 
+
         <EditText
-            android:id="@+id/et_usernameL"
+            android:id="@+id/mail"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:hint="Enter Username"
+            android:hint="Enter Email"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white" />
 
@@ -87,14 +88,15 @@
         android:textColor="@android:color/white"
         android:layout_marginTop="30dp"
         android:background="@drawable/round_button"/>
+
     <Button
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
         android:id="@+id/bt_Administrator"
-        android:text="Administrator account"
-        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
         android:layout_marginTop="30dp"
-        android:background="@drawable/round_button"/>
+        android:background="@drawable/round_button"
+        android:text="Administrator"
+        android:textColor="@android:color/white" />
 
 
     <Button

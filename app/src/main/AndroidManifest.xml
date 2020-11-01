@@ -12,7 +12,6 @@
         <activity android:name=".Succursales_Novigra"></activity>
         <activity android:name=".Services_Novigra" />
         <activity android:name=".Admin_Options" />
-        <activity android:name=".AdminAccount" />
         <activity android:name=".MainActivity2" />
         <activity android:name=".Welcome_employee" />
         <activity android:name=".Welcome_cutomer" />
